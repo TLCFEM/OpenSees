@@ -225,7 +225,9 @@ extern void *OPS_NewmarkHSIncrLimit(void);
 extern void *OPS_NewmarkHSIncrReduct(void);
 extern void *OPS_WilsonTheta(void);
 
-
+#include <LeeNewmark.h>
+#include <LeeNewmarkFull.h>
+#include <LeeSparse.h>
 #include <Newmark.h>
 #include <TRBDF2.h>
 #include <TRBDF3.h>
@@ -2840,6 +2842,13 @@ specifySOE(ClientData clientData, Tcl_Interp *interp, int argc, TCL_Char **argv)
   }
 #endif
 
+	  // Lee Sparse
+  else if(strcmp(argv[1], "LeeSparse") == 0) {
+	  SuperLU* theSolver = new SuperLU();
+	  theSOE = new LeeSparse(*theSolver, 0);
+	  theSolver->setLinearSOE(*dynamic_cast<SparseGenColLinSOE*>(theSOE));
+  }
+
   // BAND SPD SOE & SOLVER
   else if (strcmp(argv[1],"BandSPD") == 0) {
       BandSPDLinSolver    *theSolver = new BandSPDLinLapackSolver();   
@@ -4627,6 +4636,36 @@ specifyIntegrator(ClientData clientData, Tcl_Interp *interp, int argc,
     // if the analysis exists - we want to change the Integrator
     if (theTransientAnalysis != 0)
       theTransientAnalysis->setIntegrator(*theTransientIntegrator);
+  }
+
+  else if(strcmp(argv[1], "LeeNewmark") == 0) {
+	  theTransientIntegrator = static_cast<TransientIntegrator*>(OPS_LeeNewmark(false));
+
+	  if(nullptr != theTransientAnalysis) theTransientAnalysis->setIntegrator(*theTransientIntegrator);
+  }
+  
+  else if(strcmp(argv[1], "LeeNewmarkWithInitialStiffness") == 0) {
+	  theTransientIntegrator = static_cast<TransientIntegrator*>(OPS_LeeNewmark(true));
+
+	  if(nullptr != theTransientAnalysis) theTransientAnalysis->setIntegrator(*theTransientIntegrator);
+  }
+  
+  else if(strcmp(argv[1], "LeeNewmarkFullKI") == 0) {
+	  theTransientIntegrator = static_cast<TransientIntegrator*>(OPS_LeeNewmarkFull(1));
+
+	  if(nullptr != theTransientAnalysis) theTransientAnalysis->setIntegrator(*theTransientIntegrator);
+  }
+
+  else if(strcmp(argv[1], "LeeNewmarkFullKC") == 0) {
+	  theTransientIntegrator = static_cast<TransientIntegrator*>(OPS_LeeNewmarkFull(2));
+
+	  if(nullptr != theTransientAnalysis) theTransientAnalysis->setIntegrator(*theTransientIntegrator);
+  }
+	
+  else if(strcmp(argv[1], "LeeNewmarkFullKT") == 0) {
+	  theTransientIntegrator = static_cast<TransientIntegrator*>(OPS_LeeNewmarkFull(3));
+
+	  if(nullptr != theTransientAnalysis) theTransientAnalysis->setIntegrator(*theTransientIntegrator);
   }
   
   else if (strcmp(argv[1],"GimmeMCK") == 0 || strcmp(argv[1],"ZZTop") == 0) {

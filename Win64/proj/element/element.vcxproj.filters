@@ -896,6 +896,12 @@
     <ClCompile Include="..\..\..\SRC\element\PFEMElement\PFEMContact2D.cpp">
       <Filter>pfem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\SRC\element\fourNodeQuad\GCMQ.cpp">
+      <Filter>quad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\SRC\element\fourNodeQuad\IntegrationPlan.cpp">
+      <Filter>quad</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\SRC\element\Element.h">
@@ -1593,6 +1599,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\SRC\element\PFEMElement\PFEMContact2D.h">
       <Filter>pfem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\SRC\element\fourNodeQuad\GCMQ.h">
+      <Filter>quad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\SRC\element\fourNodeQuad\IntegrationPlan.h">
+      <Filter>quad</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

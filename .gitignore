@@ -79,3 +79,10 @@ SRC/interpreter/pythonInterpreter
 SRC/interpreter/tclInterpreter
 SRC/interpreter/openseespy
 SRC/interpreter/openseestcl
+
+!Win64/bin/OpenSees.exe
+!Win64/bin/tcl**
+!Win64/lib/**
+
+Win64/lib/debug/**
+Win64/lib/release/**

@@ -181,6 +181,7 @@ extern void *OPS_SingleFPSimple2d(void);
 extern void *OPS_SingleFPSimple3d(void);
 extern void *OPS_RJWatsonEQS2d(void);
 extern void *OPS_RJWatsonEQS3d(void);
+extern void *OPS_GCMQ(void);
 //extern void* OPS_GradientInelasticBeamColumn2d();
 //extern void* OPS_GradientInelasticBeamColumn3d();
 
@@ -1061,6 +1062,18 @@ TclModelBuilderElementCommand(ClientData clientData, Tcl_Interp *interp,
   else if (strcmp(argv[1], "AV3D4") == 0) {
     
     void *theEle = OPS_AV3D4QuadWithSensitivity();
+    if (theEle != 0) 
+      theElement = (Element *)theEle;
+    else {
+      opserr << "tclelementcommand -- unable to create element of type : " << argv[1] << endln;
+      return TCL_ERROR;
+    }
+  } 
+  
+
+  else if (strcmp(argv[1], "GCMQ") == 0) {
+    
+    void *theEle = OPS_GCMQ();
     if (theEle != 0) 
       theElement = (Element *)theEle;
     else {
